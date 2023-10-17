@@ -1,4 +1,5 @@
 import 'package:final_coffee/cubits/coffee/coffee_cubit.dart';
+import 'package:final_coffee/cubits/tab/tab_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -217,7 +218,10 @@ class CoffeeDetailedScreen extends StatelessWidget {
                           ),
                         ),
                         16.ph,
-                        GlobalButton(title: "Add to Cart", onTap: () {})
+                        GlobalButton(title: "Add to Cart", onTap: () {
+                          context.read<TabCubit>().changeTabIndex(2);
+                          Navigator.pop(context);
+                        })
                       ],
                     ),
                   ),

@@ -1,24 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_coffee/data/models/universal_data.dart';
-import 'package:final_coffee/data/network/user_repository.dart';
-import 'package:final_coffee/services/service_locator/service_locator.dart';
-import 'package:final_coffee/ui/tab_box/profile/widgets/profile_holder.dart';
 import 'package:final_coffee/ui/tab_box/profile/widgets/profile_widgets.dart';
-import 'package:final_coffee/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../../cubits/tab/tab_cubit.dart';
 import '../../../cubits/user/user_cubit.dart';
-import '../../../data/models/user_model/user_field_keys.dart';
-import '../../../data/models/user_model/user_model.dart';
 import '../../../utils/icons.dart';
 import '../../../utils/size_extensions.dart';
 import '../../app_routes.dart';
-import '../../widgets/global_button.dart';
-import '../../widgets/text_field.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
