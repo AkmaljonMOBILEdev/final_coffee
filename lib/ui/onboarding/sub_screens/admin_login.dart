@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../cubits/tab/tab_cubit.dart';
 import '../../../cubits/user/user_cubit.dart';
 import '../../../utils/constants.dart';
+import '../../../utils/ui_utils/loading_dialog.dart';
 import '../../app_routes.dart';
 import '../../widgets/global_button.dart';
 import '../../widgets/text_field.dart';
@@ -62,11 +63,7 @@ class _AdminLoginScreenState extends State<AdminLoginScreen> {
             GlobalButton(
               title: "Login",
               onTap: () {
-                // if(FirebaseAuth.instance.currentUser==null){
-                //   context.read<UserCubit>().signFakeUser(context);
-                // }else{
-                //   context.read<UserCubit>().loginFake();
-                // }
+
 
 
                 if(loginHolder==loginForAdmin){

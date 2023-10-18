@@ -26,112 +26,198 @@ class _CartScreenState extends State<CartScreen> {
         appBar: AppBar(
           title: const Text("2 items in Cart"),
         ),
-        body: StreamBuilder<List<CoffeeModel>>(
-          stream: getIt.get<FirebaseRepository>().getOrders(),
-          builder: (context, snapshot) {
-            if(snapshot.hasData){
-              final orderedList = snapshot.data;
-              return Column(
+        body: Column(
+          children: [
+            Expanded(
+                child: ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              physics: const BouncingScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return CartItemHolder(
+                  coffeeModel: fakeProducts[index],
+                  onAdd: () {
+                    // context.read<UserCubit>().updateUserFields(fieldKey: UserFieldKeys.list, value: state.userModel.orderedList.add(state.userModel.orderedList.first));
+                  },
+                  onCancel: () {},
+                  onRemove: () {},
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return 16.ph;
+              },
+              itemCount: fakeProducts.length,
+            )),
+            Padding(
+              padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
+              child: Column(
                 children: [
-                  Expanded(
-                      child: ListView.separated(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (BuildContext context, int index) {
-                          return CartItemHolder(
-                            coffeeModel: orderedList![index],
-                            onAdd: () {
-                              // context.read<UserCubit>().updateUserFields(fieldKey: UserFieldKeys.list, value: state.userModel.orderedList.add(state.userModel.orderedList.first));
-                            },
-                            onCancel: () {},
-                            onRemove: () {},
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) {
-                          return 16.ph;
-                        },
-                        itemCount: snapshot.data!.length,
-                      )),
-                  Padding(
-                    padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Total:",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(
+                                fontSize: 16.sp, fontWeight: FontWeight.w700),
+                      ),
+                      RichText(
+                        overflow: TextOverflow.clip,
+                        text: TextSpan(
+                          text: "UZS  ",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                  color: const Color(0xFF335c67),
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16.sp),
                           children: [
-                            Text(
-                              "Total:",
+                            TextSpan(
+                              text: (fakeProducts[1].price +
+                                      fakeProducts[6].price)
+                                  .toString(),
                               style: Theme.of(context)
                                   .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            RichText(
-                              overflow: TextOverflow.clip,
-                              text: TextSpan(
-                                text: "UZS  ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleLarge
-                                    ?.copyWith(
-                                    color: const Color(0xFF335c67),
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16.sp),
-                                children: [
-                                  TextSpan(
-                                    text: (fakeProducts[1].price +
-                                        fakeProducts[6].price)
-                                        .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleLarge
-                                        ?.copyWith(
-                                        color: const Color(0xFF008000)),
-                                  )
-                                ],
-                              ),
-                            ),
+                                  .titleLarge
+                                  ?.copyWith(color: const Color(0xFF008000)),
+                            )
                           ],
                         ),
-                        6.ph,
-                        GlobalButton(
-                          title: "Checkout",
-                          onTap: () {
-                            showEditProfileDialog(context);
-                          },
-                        ),
-                        context.watch<TabCubit>().state.isAdmin
-                            ? SizedBox(
+                      ),
+                    ],
+                  ),
+                  6.ph,
+                  GlobalButton(
+                    title: "Checkout",
+                    onTap: () {
+                      showEditProfileDialog(context);
+                    },
+                  ),
+                  context.watch<TabCubit>().state.isAdmin
+                      ? SizedBox(
                           height: 48.h,
                         )
-                            : TextButton(
-                            onPressed: () {
-                              context.read<TabCubit>().changeTabIndex(0);
-                            },
-                            child: Text(
-                              "Back to Menu",
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ))
-                      ],
-                    ),
-                  )
+                      : TextButton(
+                          onPressed: () {
+                            context.read<TabCubit>().changeTabIndex(0);
+                          },
+                          child: Text(
+                            "Back to Menu",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ))
                 ],
-              );
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator(); // Show a loading indicator while fetching data
-            } else if (snapshot.hasError) {
-              return Text("Error: ${snapshot.error}");
-            } else if (snapshot.data!.isEmpty) {
-              return const Center(
-                  child: Text(
-                      "No items in cart.")); // Show a message if there are no items
-            }
-            return const SizedBox();
-
-          },
+              ),
+            )
+          ],
         ));
+    // body: StreamBuilder<List<CoffeeModel>>(
+    //   stream: getIt.get<FirebaseRepository>().getOrders(),
+    //   builder: (context, snapshot) {
+    //     if(snapshot.hasData){
+    //       final orderedList = snapshot.data;
+    //       return Column(
+    //         children: [
+    //           Expanded(
+    //               child: ListView.separated(
+    //                 padding: EdgeInsets.symmetric(horizontal: 16.w),
+    //                 physics: const BouncingScrollPhysics(),
+    //                 itemBuilder: (BuildContext context, int index) {
+    //                   return CartItemHolder(
+    //                     coffeeModel: fakeProducts[index],
+    //                     onAdd: () {
+    //                       // context.read<UserCubit>().updateUserFields(fieldKey: UserFieldKeys.list, value: state.userModel.orderedList.add(state.userModel.orderedList.first));
+    //                     },
+    //                     onCancel: () {},
+    //                     onRemove: () {},
+    //                   );
+    //                 },
+    //                 separatorBuilder: (BuildContext context, int index) {
+    //                   return 16.ph;
+    //                 },
+    //                 itemCount: snapshot.data!.length,
+    //               )),
+    //           Padding(
+    //             padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
+    //             child: Column(
+    //               children: [
+    //                 Row(
+    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                   children: [
+    //                     Text(
+    //                       "Total:",
+    //                       style: Theme.of(context)
+    //                           .textTheme
+    //                           .titleMedium
+    //                           ?.copyWith(
+    //                           fontSize: 16.sp,
+    //                           fontWeight: FontWeight.w700),
+    //                     ),
+    //                     RichText(
+    //                       overflow: TextOverflow.clip,
+    //                       text: TextSpan(
+    //                         text: "UZS  ",
+    //                         style: Theme.of(context)
+    //                             .textTheme
+    //                             .titleLarge
+    //                             ?.copyWith(
+    //                             color: const Color(0xFF335c67),
+    //                             fontWeight: FontWeight.w700,
+    //                             fontSize: 16.sp),
+    //                         children: [
+    //                           TextSpan(
+    //                             text: (fakeProducts[1].price +
+    //                                 fakeProducts[6].price)
+    //                                 .toString(),
+    //                             style: Theme.of(context)
+    //                                 .textTheme
+    //                                 .titleLarge
+    //                                 ?.copyWith(
+    //                                 color: const Color(0xFF008000)),
+    //                           )
+    //                         ],
+    //                       ),
+    //                     ),
+    //                   ],
+    //                 ),
+    //                 6.ph,
+    //                 GlobalButton(
+    //                   title: "Checkout",
+    //                   onTap: () {
+    //                     showEditProfileDialog(context);
+    //                   },
+    //                 ),
+    //                 context.watch<TabCubit>().state.isAdmin
+    //                     ? SizedBox(
+    //                   height: 48.h,
+    //                 )
+    //                     : TextButton(
+    //                     onPressed: () {
+    //                       context.read<TabCubit>().changeTabIndex(0);
+    //                     },
+    //                     child: Text(
+    //                       "Back to Menu",
+    //                       style: Theme.of(context).textTheme.titleSmall,
+    //                     ))
+    //               ],
+    //             ),
+    //           )
+    //         ],
+    //       );
+    //     }
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return const CircularProgressIndicator(); // Show a loading indicator while fetching data
+    //     } else if (snapshot.hasError) {
+    //       return Text("Error: ${snapshot.error}");
+    //     } else if (snapshot.data!.isEmpty) {
+    //       return const Center(
+    //           child: Text(
+    //               "No items in cart.")); // Show a message if there are no items
+    //     }
+    //     return const SizedBox();
+    //
+    //   },
+    // ));
   }
 }

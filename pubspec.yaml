@@ -31,12 +31,17 @@ dependencies:
   firebase_auth: ^4.10.1
   cached_network_image: ^3.3.0
   path_provider: ^2.1.1
+  flutter_launcher_icons: ^0.13.1
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/cof_logo.jpg"
 
   flutter_lints: ^2.0.0
 

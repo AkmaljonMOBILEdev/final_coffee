@@ -47,7 +47,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           fontStyle: FontStyle.italic, color: AppColors.white),
                     ),
                     Text(
-                      "AliCafe",
+                      "Coffee Shop",
                       style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                           fontStyle: FontStyle.italic, color: AppColors.white),
                     ),
@@ -57,6 +57,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       onTap: () {
                         context.read<TabCubit>().changeAdmin(false);
                         context.read<TabCubit>().changeTabIndex(0);
+
                         Navigator.pushReplacementNamed(context, RouteNames.tabBox);
                         },
                       isOnBoard: true,

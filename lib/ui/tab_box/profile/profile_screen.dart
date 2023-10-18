@@ -1,3 +1,4 @@
+import 'package:final_coffee/ui/tab_box/profile/widgets/profile_holder.dart';
 import 'package:final_coffee/ui/tab_box/profile/widgets/profile_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     width: editW(140),
                     child: Lottie.asset(AppIcons.profileLottie),
                   ),
+                  ProfileFieldHolder(title: "Your name"),
+                  ProfileFieldHolder(title: "Your phone"),
+                  ProfileFieldHolder(title: "Your address"),
                   ProfileMainWidgets(
                     title: "Log out",
                     onTap: () {

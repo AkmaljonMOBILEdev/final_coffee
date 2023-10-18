@@ -10,6 +10,7 @@ import '../../cubits/tab/tab_state.dart';
 import '../../data/local/storage_repository/storage_repository.dart';
 import '../../utils/colors.dart';
 import '../../utils/icons.dart';
+import '../../utils/ui_utils/loading_dialog.dart';
 import '../app_routes.dart';
 import 'cart/cart_screen.dart';
 import 'home/home_screen.dart';
